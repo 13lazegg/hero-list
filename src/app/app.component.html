@@ -1,0 +1,9 @@
+@if (loading$ | async; as loading) {
+  @if(loading){
+    <div class="loading">
+      <span class="loader"></span>
+      <p>Loading...</p>
+    </div>
+  }
+}
+<router-outlet></router-outlet>

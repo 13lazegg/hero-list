@@ -1,0 +1,89 @@
+<div class="container">
+    <h1>Hello, {{ title }}</h1>
+    <p>🌟 Listado de Heroes. 🌟</p>
+    <div class="table">
+        <div class="filters">
+            <mat-form-field>
+                <mat-label>Filtro</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Bat" #input>
+            </mat-form-field>
+            <button (click)="openAddHeroDialog()" mat-fab color="primary" aria-label="add">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <table mat-table [dataSource]="dataSource" class="example-table" multiTemplateDataRows
+                matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+            <!-- id Column -->
+            <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>id</th>
+            <td mat-cell *matCellDef="let row">{{row.id}}</td>
+            </ng-container>
+    
+            <!-- Name Column -->
+            <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+            <td mat-cell *matCellDef="let row">{{row.nombre}}</td>
+            </ng-container>
+
+            <!-- Expand Column -->
+            <ng-container matColumnDef="expand">
+                <th mat-header-cell *matHeaderCellDef aria-label="row actions">Detalle</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button aria-label="expand row" (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+                    @if (expandedElement === element) {
+                      <mat-icon>keyboard_arrow_up</mat-icon>
+                    } @else {
+                      <mat-icon>keyboard_arrow_down</mat-icon>
+                    }
+                  </button>
+                </td>
+            </ng-container>
+            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+            <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+                <div class="example-element-detail"
+                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                    <div class="example-element-diagram">
+                        <div class="info">
+                            <div class="example-element-position">
+                                <img [src]="element.imagen" [alt]="element.nombre">
+                            </div>
+                            <div>
+                                <span class="example-element-description-attribution"> -- Origen </span>
+                                <article>{{element.origen}}</article>
+                                <span class="example-element-description-attribution"> -- Poderes </span>
+                                <article>{{element.poderes}}</article>
+                                <span class="example-element-description-attribution"> -- Debilidades </span>
+                                <article>{{element.debilidades}}</article>
+                                <span class="example-element-description-attribution"> -- Archienemigos </span>
+                                <article>{{element.archienemigos}}</article>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <button (click)="openEditHeroDialog(element)" mat-fab color="primary" aria-label="edit">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button (click)="openConfirmDialog(element)" mat-fab color="secondary" aria-label="delete">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="example-element-description">
+                        <span class="example-element-description-attribution"> -- Descripción </span>
+                        <article>{{element.descripcion}}</article>
+                    </div>
+                </div>
+            </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+            <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
+                class="example-element-row"
+                [class.example-expanded-row]="expandedElement === element"
+                (click)="expandedElement = expandedElement === element ? null : element">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
+        <mat-paginator [pageSize]="5" aria-label="Select page of Heros Result"></mat-paginator>
+    </div>
+</div>

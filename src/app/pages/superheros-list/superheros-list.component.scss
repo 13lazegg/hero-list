@@ -1,0 +1,106 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    h1, p{
+        color: white;
+        text-shadow: -8px 0 black, 0 8px black, 8px 0 black, 0 -8px black;
+        text-align: center;
+    }
+    h1{
+        font-size: 6rem;
+    }
+    p{
+        font-size: 4rem;
+    }
+    .table{
+        padding: 15px;
+        background-color: white;
+        border-radius: 10px;
+        margin-bottom: 50px;
+        table {
+            width: 100%;
+          }
+          
+          tr.example-detail-row {
+            height: 0;
+          }
+          
+          tr.example-element-row:not(.example-expanded-row):hover {
+            background: whitesmoke;
+          }
+          
+          tr.example-element-row:not(.example-expanded-row):active {
+            background: #efefef;
+          }
+          
+          .example-element-row td {
+            border-bottom-width: 0;
+          }
+          
+          .example-element-detail {
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            flex-direction: column;
+          }
+
+          .filters{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            mat-form-field{
+                width: 100%;
+            }
+          }
+          
+          .example-element-diagram {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            width: 100%;
+            .info{
+                display: flex;
+                justify-content: space-between;
+                align-items: start;
+                gap: 10px;
+            }
+            .actions{
+                display: flex;
+                gap: 10px;
+                padding: 10px;
+            }
+            .example-element-position {
+                min-width: 80px;
+                border: 2px solid black;
+                padding: 8px;
+                font-weight: lighter;
+                margin: 8px 0;
+                img{
+                    width: 100%;
+                    max-width: 275px;
+                    max-height: 183px;
+                    object-fit: contain;
+                }
+            }
+          }
+          
+          .example-element-symbol {
+            font-weight: bold;
+            font-size: 40px;
+            line-height: normal;
+          }
+          
+          .example-element-description {
+            padding: 16px;
+          }
+          
+          .example-element-description-attribution {
+            opacity: 0.5;
+          }
+    }
+}
