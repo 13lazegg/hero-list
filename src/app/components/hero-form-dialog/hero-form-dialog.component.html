@@ -1,0 +1,110 @@
+<div class="add">
+    <h1 mat-dialog-title>{{data? 'Editar Héroe' : 'Agregar Nuevo Héroe' }}</h1>
+    <div mat-dialog-content class="container">
+        <form [formGroup]="heroForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="nombre" uppercase required>
+                <mat-error>Este campo es requerido</mat-error>
+            </mat-form-field>
+
+            <mat-divider></mat-divider>
+
+            <div formArrayName="poderes">
+    
+                <label>Poderes</label>
+                @for(poder of poderes.controls; track poder){
+                    <div [formGroupName]="$index" class="row">
+                        <mat-form-field appearance="fill">
+                            <input required matInput formControlName="poder" placeholder="Poder">
+                            <mat-error>Este campo es requerido</mat-error>
+                        </mat-form-field>
+                        <button type="button" (click)="removePoder($index)" mat-icon-button color="primary" aria-label="delete">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                }
+                <button mat-button type="button" (click)="addPoder()">Agregar Poder</button>
+    
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div formArrayName="debilidades">
+    
+                <label>Debilidades</label>
+                @for(debilidad of debilidades.controls; track debilidad){
+                    <div [formGroupName]="$index" class="row">
+                        <mat-form-field appearance="fill">
+                            <input required matInput formControlName="debilidad" placeholder="Debilidad">
+                            <mat-error>Este campo es requerido</mat-error>
+                        </mat-form-field>
+                        <button type="button" (click)="removeDebilidad($index)" mat-icon-button color="primary" aria-label="delete">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                }
+                <button mat-button type="button" (click)="addDebilidad()">Agregar Debilidad</button>
+    
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div formArrayName="archienemigos">
+    
+                <label>Archienemigos</label>
+                @for(archienemigo of archienemigos.controls; track archienemigo){
+                    <div [formGroupName]="$index" class="row">
+                        <mat-form-field appearance="fill">
+                            <input required matInput formControlName="archienemigo" placeholder="Archienemigos">
+                            <mat-error>Este campo es requerido</mat-error>
+                        </mat-form-field>
+                        <button type="button" (click)="removeArchienemigo($index)" mat-icon-button color="primary" aria-label="delete">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                }
+                <button mat-button type="button" (click)="addArchienemigo()">Agregar Archienemigo</button>
+    
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <mat-form-field appearance="fill">
+    
+                <mat-label>Origen</mat-label>
+                <input matInput formControlName="origen" required>
+                <mat-error>Este campo es requerido</mat-error>
+            </mat-form-field>
+
+            <mat-divider></mat-divider>
+
+            <mat-form-field appearance="fill">
+    
+                <mat-label>Descripción</mat-label>
+                <textarea matInput formControlName="descripcion" required></textarea>
+                <mat-error>Este campo es requerido</mat-error>
+            </mat-form-field>
+
+            <mat-divider></mat-divider>
+
+            <div class="imagen">
+                <div class="file-upload">
+                    <label for="file-upload-input" class="file-upload-label">
+                        <mat-icon>attach_file</mat-icon>
+                        Seleccionar Imagen
+                    </label>
+                    <input id="file-upload-input" type="file" (change)="onFileChange($event)">
+                </div>
+                @if(previewImage) {
+                    <img [src]="previewImage" alt="Vista previa de la imagen">
+                }
+    
+            </div>
+        </form>
+    </div>
+    <div mat-dialog-actions class="actions">
+        <button mat-button (click)="onCancel()">Cancelar</button>
+        <button mat-button [disabled]="!heroForm.valid" (click)="onSubmit()">Agregar</button>
+    </div>
+</div>
